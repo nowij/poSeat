@@ -8,12 +8,20 @@
 </head>
 <body>
     <button onclick="goPage();">관리자</button>
+    <table id="customTable"></table>
     <!--
        자리
     -->
 </body>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
+$(document).ready(function() {
+    // DB에서 테이블 수 조회
+});
+
+function setTable() {
+
+}
 
 function goPage() {
  let form = document.createElement('form');

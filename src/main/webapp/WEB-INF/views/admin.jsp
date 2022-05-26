@@ -22,14 +22,20 @@
         </thead>
         <tbody>
             <tr>
-                <td>좌석 수</td>
-                <td><input id="seatCount" type="text" readonly/></td>
+                <td>테이블 수</td>
+                <td>
+                    <select>
+                        <option>4</option>
+                        <option>8</option>
+                        <option>16</option>
+                    </select>
+                </td>
             </tr>
         </tbody>
     </table>
 <button onclick="doChange();">변경</button>
 </body>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
 function doChange() {
 

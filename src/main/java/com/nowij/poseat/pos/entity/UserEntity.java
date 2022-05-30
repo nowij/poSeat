@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @DynamicUpdate
 @Table(name = "pos_user")
-public class UsertEntity implements Serializable {
+public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,10 @@ public class UsertEntity implements Serializable {
     @Column(name = "tb_cnt")
     private Integer tbCnt;
 
-    public UsertEntity() {
+    public UserEntity() {
     }
 
-    public UsertEntity(UserVO vo) {
+    public UserEntity(UserVO vo) {
         id = vo.getId();
         pw = vo.getPw();
         tbCnt = vo.getTbCnt();

@@ -38,15 +38,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
     function doLogin() {
-        var id = $('#lginId').value();
-        var pw = $('#lginPw').value();
+        var id = $('#lginId').val();
+        var pw = $('#lginPw').val();
         $.ajax({
             url: '/login.do',
-            data: {
-                "id" : id,
-                "pw" : pw
-            },
-            method: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'id' : id,
+                'pw' : pw
+            }),
+            method: 'POST',
             success: function (data) {
                 if (data == 1){
                     goPage();
@@ -58,7 +59,7 @@
     }
 
     function goPage() {
-        const id = $('#lginId').value();
+        const id = $('#lginId').val();
         let form = document.createElement('form');
         let object;
         object = document.createElement('input');

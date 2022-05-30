@@ -14,7 +14,7 @@ public class PosController {
 
     @RequestMapping("/pos.do")
     public String pos(String id, Model model) {
-        model.addAttribute("id", id);
+        model.addAttribute("admin", id);
         return "pos";
     }
 }

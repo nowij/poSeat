@@ -24,7 +24,7 @@
             <tr>
                 <td>테이블 수</td>
                 <td>
-                    <select>
+                    <select id="tbleCnt">
                         <option>4</option>
                         <option>8</option>
                         <option>16</option>
@@ -37,8 +37,21 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
+const adminId = '${adminId}';
 function doChange() {
+    const cnt = $('#tbleCnt').val();
+    $.ajax({
+        url: '/tableSave.do',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            'id' : adminId,
+            'tbCnt' : cnt
+        }),
+        success: function (data) {
 
+        }
+    });
 }
 </script>
 </html>

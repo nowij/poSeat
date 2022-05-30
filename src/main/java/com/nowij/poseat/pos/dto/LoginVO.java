@@ -3,7 +3,7 @@ package com.nowij.poseat.pos.dto;
 public class LoginVO {
     private String id;
     private String pw;
-    private String tableCount;
+    private Integer tbCnt = 0;
 
     public String getId() {
         return id;
@@ -13,7 +13,7 @@ public class LoginVO {
         return pw;
     }
 
-    public String getTableCount() {
-        return tableCount;
+    public Integer getTbCnt() {
+        return tbCnt;
     }
 }

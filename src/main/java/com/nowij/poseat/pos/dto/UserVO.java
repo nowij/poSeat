@@ -1,6 +1,6 @@
 package com.nowij.poseat.pos.dto;
 
-public class LoginVO {
+public class UserVO {
     private String id;
     private String pw;
     private Integer tbCnt = 0;

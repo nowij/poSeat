@@ -1,6 +1,6 @@
 package com.nowij.poseat.pos.entity;
 
-import com.nowij.poseat.pos.dto.LoginVO;
+import com.nowij.poseat.pos.dto.UserVO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -8,24 +8,24 @@ import java.io.Serializable;
 
 @Entity
 @DynamicUpdate
-@Table(name = "login")
-public class LoginEntity implements Serializable {
+@Table(name = "pos_user")
+public class UsertEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
 
-    @Column
+    @Column(name = "pw")
     private String pw;
 
-    @Column
+    @Column(name = "tb_cnt")
     private Integer tbCnt;
 
-    public LoginEntity() {
+    public UsertEntity() {
     }
 
-    public LoginEntity(LoginVO vo) {
+    public UsertEntity(UserVO vo) {
         id = vo.getId();
         pw = vo.getPw();
         tbCnt = vo.getTbCnt();

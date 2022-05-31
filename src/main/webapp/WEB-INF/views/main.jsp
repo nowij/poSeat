@@ -2,47 +2,39 @@
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<style>
-    table {
-        border: 1px solid #444444;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #444444;
-    }
-</style>
+<%@ include file="headers.jsp"%>
 <body>
-    <table>
+    <table id="dg" style="width: 100px">
         <thead>
             <th colspan="2">Login</th>
         </thead>
         <tbody>
             <tr>
                 <td>ID</td>
-                <td><input id="lginId" type="text"/></td>
+                <td><input id="lginId" type="text" class="easyui-textbox"/></td>
             </tr>
             <tr>
                 <td>PW</td>
-                <td><input id="lginPw" type="password"></td>
+                <td><input id="lginPw" type="password" class="easyui-textbox"></td>
             </tr>
             <tr>
-                <td colspan="2"><button id="lginBtn" onclick="doLogin()">확인</button></td>
+                <td colspan="2"><button id="lginBtn" onclick="doLogin()" class="easyui-button">확인</button></td>
             </tr>
         </tbody>
     </table>
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
+    $(document).ready(function() {
+        setTitle('LOGIN');
+    });
+
     function doLogin() {
-        var id = $('#lginId').val();
-        var pw = $('#lginPw').val();
+        const id = $('#lginId').val();
+        const pw = $('#lginPw').val();
         $.ajax({
             url: '/login.do',
             contentType: 'application/json',
+            dataType: 'json',
             data: JSON.stringify({
                 'id' : id,
                 'pw' : pw

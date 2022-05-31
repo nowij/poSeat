@@ -16,8 +16,12 @@ spring:
   # spl 보기
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+#  web:
+#    resources:
+#      static-locations: classpath:/resource/static/**
 #####
 logging:
   level:

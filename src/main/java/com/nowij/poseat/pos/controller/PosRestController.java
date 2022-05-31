@@ -3,10 +3,7 @@ package com.nowij.poseat.pos.controller;
 import com.nowij.poseat.pos.dto.UserVO;
 import com.nowij.poseat.pos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PosRestController {
@@ -15,12 +12,12 @@ public class PosRestController {
     UserRepository repository;
 
     @PostMapping("/login.do")
-    public int login(@RequestBody UserVO vo) throws Exception {
+    public int login(@RequestBody UserVO vo) {
         return repository.countByIdAndPw(vo.getId(), vo.getPw());
     }
 
-    @RequestMapping("/show.do")
-    public int showTable(String id) throws Exception {
+    @PostMapping("/show.do")
+    public int showTable(String id) {
         Integer result = repository.findTbCnt(id);
         if (result == null)
             return 0;

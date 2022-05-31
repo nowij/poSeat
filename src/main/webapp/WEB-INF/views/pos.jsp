@@ -2,10 +2,7 @@
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Pos</title>
-</head>
+<%@ include file="headers.jsp"%>
 <body>
     <button onclick="goPage();">관리자(${admin})</button>
     <div id="tbleMsg" style="display: none">테이블 수를 설정해주세요.</div>
@@ -13,22 +10,24 @@
     <!--
        자리
     -->
+    <div id="adDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px;"></div>
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="application/javascript">
 const adminId = '${admin}';
+
 $(document).ready(function() {
-   showTable();
+    setTitle('POS');
+    showTable();
 });
 
 function showTable() {
     $.ajax({
         url: '/show.do',
         method: 'POST',
-        contentType: 'application/text',
         data: {
             'id' : adminId
         },
+        dataType: 'text',
         success: function (data) {
             console.log(data);
             if (data == 0) {
@@ -41,18 +40,38 @@ function showTable() {
 }
 
 function goPage() {
- let form = document.createElement('form');
- let object;
- object = document.createElement('input');
- object.setAttribute('type', 'hidden');
- object.setAttribute('name', 'id');
- object.setAttribute('value', adminId);
+    $.ajax({
+        url: '/admin.do',
+        method: 'POST',
+        data: {
+            'id' : adminId
+        },
+        dataType: 'text',
+        success: function (data) {
+            $('#adDlg').dialog({
+                title : '관리자 설정',
+                width : 400,
+                height : 200,
+                closed : false,
+                cache : false,
+                href : 'admin.do',
+                modal : true
+            });
+        }
+    });
 
- form.appendChild(object);
- form.setAttribute('method','post');
- form.setAttribute('action','admin.do');
- document.body.appendChild(form);
- form.submit();
+ // let form = document.createElement('form');
+ // let object;
+ // object = document.createElement('input');
+ // object.setAttribute('type', 'hidden');
+ // object.setAttribute('name', 'id');
+ // object.setAttribute('value', adminId);
+ //
+ // form.appendChild(object);
+ // form.setAttribute('method','post');
+ // form.setAttribute('action','admin.do');
+ // document.body.appendChild(form);
+ // form.submit();
 }
 
 </script>

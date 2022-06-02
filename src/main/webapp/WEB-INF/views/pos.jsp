@@ -4,17 +4,15 @@
 <html>
 <%@ include file="headers.jsp"%>
 <body>
-    <button onclick="goPage();">관리자(${admin})</button>
-    <div id="tbleMsg" style="display: none">테이블 수를 설정해주세요.</div>
-    <table id="customTable"></table>
-    <!--
-       자리
-    -->
-    <div id="adDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px;"></div>
+    <div id="btnLayout">
+        <button class="easyui-linkbutton" onclick="goPage();">관리자(${sessionScope.admin})</button>
+        <button class="easyui-linkbutton" onclick="doLogout();">로그아웃</button>
+    </div>
+    <div id="tbMsg" style="display: none">테이블 수를 설정해주세요.</div>
+    <div id="tbLayout"></div>
+    <div id="admDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px;"></div>
 </body>
 <script type="application/javascript">
-const adminId = '${admin}';
-
 $(document).ready(function() {
     setTitle('POS');
     showTable();
@@ -24,31 +22,36 @@ function showTable() {
     $.ajax({
         url: '/show.do',
         method: 'POST',
-        data: {
-            'id' : adminId
-        },
-        dataType: 'text',
         success: function (data) {
-            console.log(data);
             if (data == 0) {
-                $('#tbleMsg').show();
+                $('#tbMsg').show();
             } else {
-                $('#tbleMsg').hide();
+                $('#tbMsg').hide();
+                setTableLayout(data);
             }
         }
     });
+}
+function setTableLayout(tableCount) {
+    const htmlHead = '<p style="background-color: #95B8E7">';
+    const htmlTail = '</p>';
+
+    for (let i = 1; i <= tableCount; i++) {
+        $('#tbLayout').append(htmlHead + i + htmlTail);
+        $('#tbLayout > p:nth-child(' + i +')').attr('onclick', 'doInput(' + i +')');
+    }
+}
+
+function doInput(tableNumber) {
+
 }
 
 function goPage() {
     $.ajax({
         url: '/admin.do',
         method: 'POST',
-        data: {
-            'id' : adminId
-        },
-        dataType: 'text',
         success: function (data) {
-            $('#adDlg').dialog({
+            $('#admDlg').dialog({
                 title : '관리자 설정',
                 width : 400,
                 height : 200,
@@ -59,20 +62,35 @@ function goPage() {
             });
         }
     });
-
- // let form = document.createElement('form');
- // let object;
- // object = document.createElement('input');
- // object.setAttribute('type', 'hidden');
- // object.setAttribute('name', 'id');
- // object.setAttribute('value', adminId);
- //
- // form.appendChild(object);
- // form.setAttribute('method','post');
- // form.setAttribute('action','admin.do');
- // document.body.appendChild(form);
- // form.submit();
 }
 
+function doChange() {
+    const cnt = $('#tbCnt').val();
+    $.ajax({
+        url: '/countSave.do',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            'tbCnt' : cnt
+        }),
+        success: function (data) {
+            $('#admDlg').dialog('close');
+            history.go(0);
+        }
+    });
+}
+
+function doLogout() {
+    $.messager.confirm('로그아웃', '종료하시겠습니까?', function (result) {
+        if (result) {
+            let form = document.createElement('form');
+
+            form.setAttribute('method','post');
+            form.setAttribute('action','/');
+            document.body.appendChild(form);
+            form.submit();
+        }
+    })
+}
 </script>
 </html>

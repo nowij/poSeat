@@ -4,21 +4,21 @@
 <html>
 <%@ include file="headers.jsp"%>
 <body>
-    <table id="dg" style="width: 100px">
+    <table id="lgnTb" style="width: 100px">
         <thead>
             <th colspan="2">Login</th>
         </thead>
         <tbody>
             <tr>
                 <td>ID</td>
-                <td><input id="lginId" type="text" class="easyui-textbox"/></td>
+                <td><input class="easyui-textbox" id="lgnId" type="text"/></td>
             </tr>
             <tr>
                 <td>PW</td>
-                <td><input id="lginPw" type="password" class="easyui-textbox"></td>
+                <td><input class="easyui-textbox" id="lgnPw" type="password"></td>
             </tr>
             <tr>
-                <td colspan="2"><button id="lginBtn" onclick="doLogin()" class="easyui-button">확인</button></td>
+                <td colspan="2"><button class="easyui-linkbutton" id="lgnBtn" onclick="doLogin()">확인</button></td>
             </tr>
         </tbody>
     </table>
@@ -29,8 +29,8 @@
     });
 
     function doLogin() {
-        const id = $('#lginId').val();
-        const pw = $('#lginPw').val();
+        const id = $('#lgnId').val();
+        const pw = $('#lgnPw').val();
         $.ajax({
             url: '/login.do',
             contentType: 'application/json',
@@ -51,7 +51,7 @@
     }
 
     function goPage() {
-        const id = $('#lginId').val();
+        const id = $('#lgnId').val();
         let form = document.createElement('form');
         let object;
         object = document.createElement('input');

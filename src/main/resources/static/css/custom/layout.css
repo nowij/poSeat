@@ -1,0 +1,13 @@
+#tbLayout {
+    width: 520px;
+    height: auto;
+}
+
+#tbLayout p {
+    margin: 5px;
+    width: 120px;
+    height: 102px;
+    float: left;
+    line-height: 102px;
+    text-align: center;
+}

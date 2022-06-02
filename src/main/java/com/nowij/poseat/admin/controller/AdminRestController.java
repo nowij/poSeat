@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 @RestController
@@ -16,10 +17,12 @@ public class AdminRestController {
     @Autowired
     UserRepository repository;
 
-    @PostMapping("/tableSave.do")
+    @PostMapping("/countSave.do")
     @Transactional
-    public void tableCount(@RequestBody UserVO vo) throws Exception {
-        UserEntity entity = repository.findAllById(vo.getId());
+    public void countSave(@RequestBody UserVO vo, HttpSession session) {
+        String id = session.getAttribute("admin").toString();
+        UserEntity entity = repository.findAllById(id);
+        entity.setId(id);
         entity.setTbCnt(vo.getTbCnt());
         repository.save(entity);
     }

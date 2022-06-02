@@ -12,7 +12,7 @@ public class PosController {
     public String main(HttpSession session) {
         String id = (String) session.getAttribute("admin");
         if (id != null) {
-            session.removeAttribute("admin");
+            session.invalidate();
         }
         return "main";
     }

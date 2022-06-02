@@ -18,12 +18,10 @@
             </tr>
         </tbody>
     </table>
-<button onclick="doChange();" class="easyui-linkbutton">변경</button>
 </body>
 <script type="application/javascript">
-
-$(document).ready(function() {
-    setTitle('ADMIN');
-});
+    $(document).ready(function() {
+        setTitle('ADMIN');
+    });
 </script>
 </html>

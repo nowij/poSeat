@@ -4,26 +4,31 @@
 <html>
 <%@ include file="headers.jsp"%>
 <body>
-    <div id="btnLayout">
-        <button class="easyui-linkbutton" onclick="goPage();">설정(${sessionScope.admin})</button>
-        <button class="easyui-linkbutton" onclick="doLogout();">로그아웃</button>
+    <div id="posLayout">
+        <div id="btnLayout">
+            <button class="easyui-linkbutton" onclick="showAdminDialog();">설정(${sessionScope.admin})</button>
+            <button class="easyui-linkbutton" onclick="doLogout();">로그아웃</button>
+        </div>
+        <div id="tbMsg" style="display: none">테이블 수를 설정해주세요.</div>
+        <div id="tbLayout"></div>
     </div>
-    <div id="tbMsg" style="display: none">테이블 수를 설정해주세요.</div>
-    <div id="tbLayout"></div>
     <div id="admLayout" style="display: none">
         <div id="admDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px;"></div>
         <div id="admFooter">
             <button class="easyui-linkbutton" onclick="doChange();" >변경</button>
         </div>
     </div>
+    <div id="menuLayout" style="display: none">
+
+    </div>
 </body>
 <script type="application/javascript">
     $(document).ready(function() {
         setTitle('POS');
-        showTable();
+        setTable();
     });
 
-    function showTable() {
+    function setTable() {
         $.ajax({
             url: '/show.do',
             method: 'POST',
@@ -53,7 +58,7 @@
         $(id).text(''); // 입력시 변경
     }
 
-    function goPage() {
+    function showAdminDialog() {
         $.ajax({
             url: '/admin.do',
             method: 'POST',

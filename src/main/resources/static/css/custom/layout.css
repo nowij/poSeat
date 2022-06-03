@@ -11,3 +11,23 @@
     line-height: 102px;
     text-align: center;
 }
+
+#posLayout {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+#btnLayout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    height: auto;
+}
+
+#btnLayout button {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+}

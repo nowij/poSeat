@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 public class PosController {
 
     @RequestMapping("/")
-    public String main(HttpSession session) {
+    public String mainPage(HttpSession session) {
         String id = (String) session.getAttribute("admin");
         if (id != null) {
             session.invalidate();
@@ -18,8 +18,13 @@ public class PosController {
     }
 
     @RequestMapping("/pos.do")
-    public String pos(String id, HttpSession session) {
+    public String posPage(String id, HttpSession session) {
         session.setAttribute("admin", id);
         return "pos";
+    }
+
+    @RequestMapping("/menu.do")
+    public String menuPage() {
+        return "menu";
     }
 }

@@ -3,13 +3,14 @@
     height: auto;
 }
 
-#tbLayout p {
+#tbLayout div {
     margin: 5px;
     width: 120px;
     height: 102px;
     float: left;
-    line-height: 102px;
     text-align: center;
+    font-size: small;
+    word-wrap: break-word;
 }
 
 #posLayout {

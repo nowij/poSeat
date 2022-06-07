@@ -6,7 +6,7 @@
 <body>
     <div id="posLayout">
         <div id="btnLayout">
-            <button class="easyui-linkbutton" onclick="showAdminDialog();">설정(${sessionScope.admin})</button>
+            <button class="easyui-linkbutton" onclick="openAdminDlg();">설정(${sessionScope.admin})</button>
             <button class="easyui-linkbutton" onclick="doLogout();">로그아웃</button>
         </div>
         <div id="tbMsg" style="display: none">테이블 수를 설정해주세요.</div>
@@ -19,10 +19,16 @@
         </div>
     </div>
     <div id="menuLayout" style="display: none">
-
+        <div id="menuDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px"></div>
+        <div id="menuFooter">
+            <button class="easyui-linkbutton" onclick="doOrder()">주문</button>
+            <button class="easyui-linkbutton" onclick="closeDlg('menuDlg')">닫기</button>
+        </div>
     </div>
 </body>
 <script type="application/javascript">
+    let orderTable = '';
+
     $(document).ready(function() {
         setTitle('POS');
         setTable();
@@ -30,7 +36,7 @@
 
     function setTable() {
         $.ajax({
-            url: '/show.do',
+            url: '/show/table.do',
             method: 'POST',
             success: function (data) {
                 if (data == 0) {
@@ -43,37 +49,51 @@
         });
     }
     function setTableLayout(tableCount) {
-        const htmlHead = '<p style="background-color: #95B8E7">';
-        const htmlTail = '</p>';
+        const htmlHead = '<div style="background-color: #95B8E7;">';
+        const htmlTail = '</div>';
 
         for (let i = 1; i <= tableCount; i++) {
             $('#tbLayout').append(htmlHead + i + htmlTail);
-            $('#tbLayout > p:nth-child(' + i +')').attr('id', 'tb'+i);
-            $('#tbLayout > p:nth-child(' + i +')').attr('onclick', 'doInput(' + i +')');
+            $('#tbLayout > div:nth-child(' + i +')').attr('id', 'tb'+i);
+            $('#tbLayout > div:nth-child(' + i +')').attr('onclick', 'openMenuDlg(' + i +')');
         }
     }
 
-    function doInput(tableNumber) {
-        const id = '#tb'+tableNumber;
-        $(id).text(''); // 입력시 변경
+    function openMenuDlg(tableNumber) {
+        orderTable = '#tb'+tableNumber;
+
+        $('#menuDlg').dialog({
+            title: '메뉴 선택',
+            href: '/menu.do',
+            width: 400,
+            height: 200,
+            closed: false,
+            cache: false,
+            modal: true,
+            buttons: '#menuFooter'
+        });
     }
 
-    function showAdminDialog() {
-        $.ajax({
-            url: '/admin.do',
-            method: 'POST',
-            success: function (data) {
-                $('#admDlg').dialog({
-                    title : '관리자 설정',
-                    width : 400,
-                    height : 200,
-                    closed : false,
-                    cache : false,
-                    href : 'admin.do',
-                    modal : true,
-                    buttons : '#admFooter'
-                });
-            }
+    function doOrder() {
+        const selectMenu = $('#menuGr').datagrid('getChecked');
+        let menuList = '';
+        for (const m of selectMenu) {
+            menuList = menuList + m.menuName + ' ';
+        }
+        $(orderTable).text(menuList);
+        closeDlg('menuDlg');
+    }
+
+    function openAdminDlg() {
+        $('#admDlg').dialog({
+            title: '관리자 설정',
+            href: '/admin.do',
+            width: 400,
+            height: 200,
+            closed: false,
+            cache: false,
+            modal: true,
+            buttons: '#admFooter'
         });
     }
 
@@ -87,7 +107,7 @@
                 'tbCnt' : cnt
             }),
             success: function (data) {
-                $('#admDlg').dialog('close');
+                closeDlg('admDlg');
                 history.go(0);
             }
         });

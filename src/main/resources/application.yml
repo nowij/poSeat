@@ -19,10 +19,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#  web:
-#    resources:
-#      static-locations: classpath:/resource/static/**
-#####
+
 logging:
   level:
     org.hibernate.type: trace

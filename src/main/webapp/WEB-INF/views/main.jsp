@@ -4,7 +4,7 @@
 <html>
 <%@ include file="headers.jsp"%>
 <body>
-    <table id="lgnTb" style="width: 100px">
+    <table id="lgnGr" style="width: 100px">
         <thead>
             <th colspan="2">Login</th>
         </thead>
@@ -41,7 +41,7 @@
             }),
             method: 'POST',
             success: function (data) {
-                if (data == 1){
+                if (data === 1){
                     goPage();
                 } else {
                     alert('아이디나 비밀번호가 틀렸습니다.');

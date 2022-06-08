@@ -3,7 +3,6 @@ package com.nowij.poseat.admin.controller;
 import com.nowij.poseat.pos.dto.UserVO;
 import com.nowij.poseat.pos.entity.UserEntity;
 import com.nowij.poseat.pos.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +13,11 @@ import javax.transaction.Transactional;
 @RestController
 public class AdminRestController {
 
-    @Autowired
-    UserRepository repository;
+    private UserRepository repository;
+
+    public AdminRestController(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @PostMapping("/countSave.do")
     @Transactional

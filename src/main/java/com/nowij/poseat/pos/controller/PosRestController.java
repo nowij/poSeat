@@ -1,10 +1,10 @@
 package com.nowij.poseat.pos.controller;
 
+import com.nowij.poseat.pos.dto.KafkaVO;
 import com.nowij.poseat.pos.dto.UserVO;
 import com.nowij.poseat.pos.entity.PosEntity;
 import com.nowij.poseat.pos.repository.PosRepository;
 import com.nowij.poseat.pos.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +15,13 @@ import java.util.List;
 @RestController
 public class PosRestController {
 
-    @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private PosRepository posRepository;
 
-    @Autowired
-    PosRepository posRepository;
+    public PosRestController(UserRepository userRepository, PosRepository posRepository) {
+        this.userRepository = userRepository;
+        this.posRepository = posRepository;
+    }
 
     @PostMapping("/login.do")
     public int login(@RequestBody UserVO vo) {
@@ -38,6 +40,11 @@ public class PosRestController {
     @PostMapping("/menuList.do")
     public List<PosEntity> showMenu() {
         return posRepository.findAll();
+    }
+
+    @PostMapping("/kafka.do")
+    public void sendKafka(@RequestBody KafkaVO vo) {
+
     }
 
 }

@@ -10,7 +10,7 @@
             <button class="easyui-linkbutton" onclick="doLogout();">로그아웃</button>
         </div>
         <div id="tbMsg" style="display: none">테이블 수를 설정해주세요.</div>
-        <div id="tbLayout"></div>
+        <div id="tbLayout" style="display: none"></div>
     </div>
     <div id="admLayout" style="display: none">
         <div id="admDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px;"></div>
@@ -22,6 +22,7 @@
         <div id="menuDlg" class="easyui-dialog" data-options="closed:true" style="width: 400px"></div>
         <div id="menuFooter">
             <button class="easyui-linkbutton" onclick="doOrder()">주문</button>
+            <button class="easyui-linkbutton" onclick="doPay()">결제</button>
             <button class="easyui-linkbutton" onclick="closeDlg('menuDlg')">닫기</button>
         </div>
     </div>
@@ -41,7 +42,9 @@
             success: function (data) {
                 if (data == 0) {
                     $('#tbMsg').show();
+                    $('#tbLayout').hide();
                 } else {
+                    $('#tbLayout').show();
                     $('#tbMsg').hide();
                     setTableLayout(data);
                 }
@@ -74,14 +77,37 @@
         });
     }
 
+    // kafka 보냄 : 테이블번호랑 oper (json)
     function doOrder() {
         const selectMenu = $('#menuGr').datagrid('getChecked');
         let menuList = '';
         for (const m of selectMenu) {
             menuList = menuList + m.menuName + ' ';
         }
+        toKafka('C');
         $(orderTable).text(menuList);
         closeDlg('menuDlg');
+    }
+
+    // kafka 보냄 : 테이블 번호랑 oper (json)
+    function doPay() {
+        toKafka('D');
+    }
+
+    function toKafka(operation) {
+        $.ajax({
+            url: 'kafka.do',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'id' : '${admin}',
+                'oper' : operation,
+                'num' : orderTable.substr(3)
+            }),
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 
     function openAdminDlg() {

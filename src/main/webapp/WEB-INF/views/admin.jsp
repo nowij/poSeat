@@ -19,9 +19,4 @@
         </tbody>
     </table>
 </body>
-<script type="application/javascript">
-    $(document).ready(function() {
-        setTitle('ADMIN');
-    });
-</script>
 </html>

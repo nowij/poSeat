@@ -22,6 +22,9 @@ public class UserEntity implements Serializable {
     @Column(name = "tb_cnt")
     private Integer tbCnt;
 
+    @Column(name = "name")
+    private String name;
+
     public UserEntity() {
     }
 
@@ -29,6 +32,7 @@ public class UserEntity implements Serializable {
         id = vo.getId();
         pw = vo.getPw();
         tbCnt = vo.getTbCnt();
+        name = vo.getName();
     }
 
     public String getId() {
@@ -53,5 +57,13 @@ public class UserEntity implements Serializable {
 
     public void setTbCnt(Integer tbCnt) {
         this.tbCnt = tbCnt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -26,4 +26,10 @@ public class AdminRestController {
         entity.setTbCnt(vo.getTbCnt());
         repository.save(entity);
     }
+
+    @PostMapping("/adminInfo.do")
+    public UserEntity adminInfo(HttpSession session) {
+        String id = session.getAttribute("admin").toString();
+        return repository.findAllById(id);
+    }
 }

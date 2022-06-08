@@ -5,7 +5,9 @@ import com.nowij.poseat.pos.entity.PosEntity;
 import com.nowij.poseat.pos.repository.PosRepository;
 import com.nowij.poseat.pos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Object> {
     int countByIdAndPw(@Param("id") String id, @Param("pw") String pw);
@@ -14,4 +16,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Object> {
     Integer findTbCnt(@Param("id") String id);
 
     UserEntity findAllById(@Param("id") String id);
+
+    List<UserEntity> findAll();
 }

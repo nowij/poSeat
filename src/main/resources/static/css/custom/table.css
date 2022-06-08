@@ -23,3 +23,16 @@
 #lgnGr tbody {
     background-color: #f2f2f2;
 }
+
+#webGr {
+    width : auto;
+    height : 50px;
+}
+#webGr th, td {
+    text-align: left;
+}
+
+#webGr tbody {
+    font-size: smaller;
+    color: #989898;
+}

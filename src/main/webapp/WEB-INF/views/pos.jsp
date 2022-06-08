@@ -93,6 +93,7 @@
             closed: false,
             cache: false,
             modal: true,
+            method: 'post',
             buttons: '#admFooter'
         });
     }

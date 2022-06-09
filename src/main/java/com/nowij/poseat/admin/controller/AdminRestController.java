@@ -1,8 +1,8 @@
 package com.nowij.poseat.admin.controller;
 
-import com.nowij.poseat.pos.dto.UserVO;
-import com.nowij.poseat.pos.entity.UserEntity;
-import com.nowij.poseat.pos.repository.UserRepository;
+import com.nowij.poseat.admin.dto.AdminVO;
+import com.nowij.poseat.admin.entity.AdminEntity;
+import com.nowij.poseat.admin.service.AdminService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,25 +13,17 @@ import javax.transaction.Transactional;
 @RestController
 public class AdminRestController {
 
-    private UserRepository repository;
+    public AdminService service;
 
-    public AdminRestController(UserRepository repository) {
-        this.repository = repository;
-    }
-
-    @PostMapping("/countSave.do")
+    @PostMapping("/seatSave.do")
     @Transactional
-    public void countSave(@RequestBody UserVO vo, HttpSession session) {
-        String id = session.getAttribute("admin").toString();
-        UserEntity entity = repository.findAllById(id);
-        entity.setId(id);
-        entity.setTbCnt(vo.getTbCnt());
-        repository.save(entity);
+    public void countSave(@RequestBody AdminVO vo) {
+        service.seatNumberSave(vo);
     }
 
     @PostMapping("/adminInfo.do")
-    public UserEntity adminInfo(HttpSession session) {
+    public AdminEntity adminInfo(HttpSession session) {
         String id = session.getAttribute("admin").toString();
-        return repository.findAllById(id);
+        return service.adminInfo(id);
     }
 }

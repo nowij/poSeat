@@ -12,10 +12,6 @@ public class PosEntity implements Serializable {
     @Column(name = "menu_name")
     private String menuName;
 
-    public PosEntity(String menuName) {
-        this.menuName = menuName;
-    }
-
     public PosEntity() {
     }
 

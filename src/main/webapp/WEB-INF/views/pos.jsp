@@ -127,10 +127,11 @@
     function doChange() {
         const cnt = $('#tbCnt').val();
         $.ajax({
-            url: '/countSave.do',
+            url: '/seatSave.do',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
+                'id' : '${admin}',
                 'tbCnt' : cnt
             }),
             success: function (data) {
